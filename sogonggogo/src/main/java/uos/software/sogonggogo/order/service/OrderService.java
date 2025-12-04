@@ -16,6 +16,7 @@ import uos.software.sogonggogo.order.domain.OrderStatus;
 import uos.software.sogonggogo.order.dto.OrderCreateRequest;
 import uos.software.sogonggogo.order.dto.OrderResponse;
 import uos.software.sogonggogo.order.repository.OrderRepository;
+import uos.software.sogonggogo.order.service.PaymentService.PaymentResult;
 import uos.software.sogonggogo.user.domain.User;
 import uos.software.sogonggogo.user.repository.UserRepository;
 import uos.software.sogonggogo.user.session.SessionKeys;
@@ -26,10 +27,19 @@ public class OrderService {
 
 	private final OrderRepository orderRepository;
 	private final UserRepository userRepository;
+	private final PaymentService paymentService;
 
 	@Transactional
 	public OrderResponse createOrder(OrderCreateRequest request, HttpSession session) {
 		User user = findLoggedInUser(session);
+
+		// 결제 요청: 더미 구현이지만 항상 성공 응답 반환
+		PaymentResult payment = paymentService.requestPayment(
+				request.deliveryInfo().cardNumber(),
+				request.pricing().total());
+		if (!payment.isSuccess()) {
+			throw new ResponseStatusException(HttpStatus.PAYMENT_REQUIRED, "결제 실패");
+		}
 
 		Order order = Order.builder()
 				.user(user)
