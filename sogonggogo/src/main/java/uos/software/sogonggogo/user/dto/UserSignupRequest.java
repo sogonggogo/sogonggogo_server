@@ -12,9 +12,9 @@ public record UserSignupRequest(
 		@NotBlank(message = "address is required")
 		String address,
 
-		@NotBlank(message = "phoneNumber is required")
-		@Pattern(regexp = "^[0-9\\-]{7,20}$", message = "phoneNumber must be digits or '-' only")
-		String phoneNumber,
+		@NotBlank(message = "phone is required")
+		@Pattern(regexp = "^[0-9\\-]{7,20}$", message = "phone must be digits or '-' only")
+		String phone,
 
 		@NotBlank(message = "email is required")
 		@Email(message = "email must be valid")

@@ -6,18 +6,20 @@ public record UserResponse(
 		Long id,
 		String name,
 		String address,
-		String phoneNumber,
+		String phone,
 		String email,
-		String creditCardNumber
+		String creditCardNumber,
+		boolean isRegularCustomer
 ) {
 
 	public static UserResponse from(User user) {
 		return new UserResponse(
-			user.getId(),
-			user.getName(),
-			user.getAddress(),
-			user.getPhoneNumber(),
-			user.getEmail(),
-			user.getCreditCardNumber());
+				user.getId(),
+				user.getName(),
+				user.getAddress(),
+				user.getPhone(),
+				user.getEmail(),
+				user.getCreditCardNumber(),
+				user.isRegularCustomer());
 	}
 }

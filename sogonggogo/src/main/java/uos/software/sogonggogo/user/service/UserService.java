@@ -34,10 +34,12 @@ public class UserService {
 		User user = User.builder()
 				.name(request.name())
 				.address(request.address())
-				.phoneNumber(request.phoneNumber())
+				.phone(request.phone())
 				.email(request.email())
 				.password(passwordEncoder.encode(request.password()))
 				.creditCardNumber(request.creditCardNumber())
+				// 신규 가입자는 기본적으로 일반 고객(false)
+				.regularCustomer(false)
 				.build();
 
 		return UserResponse.from(userRepository.save(user));
@@ -93,8 +95,8 @@ public class UserService {
 		if (request.address() != null) {
 			user.updateAddress(request.address());
 		}
-		if (request.phoneNumber() != null) {
-			user.updatePhoneNumber(request.phoneNumber());
+		if (request.phone() != null) {
+			user.updatePhone(request.phone());
 		}
 		if (request.password() != null) {
 			user.updatePassword(passwordEncoder.encode(request.password()));

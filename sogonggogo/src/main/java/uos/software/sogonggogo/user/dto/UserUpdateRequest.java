@@ -10,8 +10,8 @@ public record UserUpdateRequest(
 		@Size(min = 1, message = "address cannot be empty")
 		String address,
 
-		@Pattern(regexp = "^[0-9\\-]{7,20}$", message = "phoneNumber must be digits or '-' only")
-		String phoneNumber,
+		@Pattern(regexp = "^[0-9\\-]{7,20}$", message = "phone must be digits or '-' only")
+		String phone,
 
 		@Size(min = 8, max = 72, message = "password must be between 8 and 72 characters")
 		String password,
@@ -21,6 +21,6 @@ public record UserUpdateRequest(
 ) {
 
 	public boolean hasNoChanges() {
-		return name == null && address == null && phoneNumber == null && password == null && creditCardNumber == null;
+		return name == null && address == null && phone == null && password == null && creditCardNumber == null;
 	}
 }

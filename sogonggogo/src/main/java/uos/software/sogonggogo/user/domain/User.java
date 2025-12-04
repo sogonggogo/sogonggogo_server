@@ -31,8 +31,8 @@ public class User {
 	@Column(nullable = false)
 	private String address;
 
-	@Column(name = "phone_number", nullable = false)
-	private String phoneNumber;
+	@Column(name = "phone", nullable = false)
+	private String phone;
 
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -43,6 +43,10 @@ public class User {
 	@Column(name = "credit_card_number", nullable = false, length = 16)
 	private String creditCardNumber;
 
+	@Builder.Default
+	@Column(name = "is_regular_customer", nullable = false)
+	private boolean regularCustomer = false;
+
 	public void updateName(String name) {
 		this.name = name;
 	}
@@ -51,8 +55,8 @@ public class User {
 		this.address = address;
 	}
 
-	public void updatePhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void updatePhone(String phone) {
+		this.phone = phone;
 	}
 
 	public void updatePassword(String encodedPassword) {
@@ -61,5 +65,9 @@ public class User {
 
 	public void updateCreditCardNumber(String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
+	}
+
+	public void markAsRegularCustomer() {
+		this.regularCustomer = true;
 	}
 }
